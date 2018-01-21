@@ -17,20 +17,30 @@ describe(TextDocument.name, () => {
   it("create a full blown document", async (done) => {
     const document = new TextDocument();
 
+    // heading
     document.addHeading("First heading");
     document.addHeading("Second heading", 2);
 
+    // paragraph + styling
     const para1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
     para1.appendText("\nSome more text");
     para1.setHorizontalAlignment(HorizontalAlignment.Center);
 
-    const heading20 = document.addHeading("List");
+    // list
+    const heading20 = document.addHeading("Lists");
     heading20.setPageBreak();
 
     const list = document.addList();
     list.addItem("first item");
-    list.addItem("second item");
+    const listItem = list.addItem("second item");
 
+    const subList = listItem.addList();
+    subList.addItem("first sub item");
+    subList.addItem("first sub item");
+
+    list.addItem("third item");
+
+    // misc
     const heading30 = document.addHeading("Another chapter");
     heading30.setPageBreak();
 

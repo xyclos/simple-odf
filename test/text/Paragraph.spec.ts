@@ -1,6 +1,6 @@
+import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
-import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
 
 describe(Paragraph.name, () => {
   let document: TextDocument;
