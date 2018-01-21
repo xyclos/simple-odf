@@ -21,12 +21,12 @@ const simpleOdf = require("simple-odf");
 
 const document = new simpleOdf.TextDocument();
 
-document.addHeadline("My First Document");
+document.addHeading("My First Document");
 
 const p1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
 p1.appendTextContent("\nThe five boxing wizards jump quickly");
 
-document.addHeadline("Credits", 2);
+document.addHeading("Credits", 2);
 
 document.addParagraph("This was quite easy. Do you want to know why?");
 
