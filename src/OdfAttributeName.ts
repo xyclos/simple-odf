@@ -5,6 +5,7 @@ export enum OdfAttributeName {
   StyleFamily = "style:family",
   StyleName = "style:name",
 
-  TextStyleName = "text:style-name",
+  TextContinueNumbering = "text:continue-numbering",
   TextOutlineLevel = "text:outline-level",
+  TextStyleName = "text:style-name",
 }

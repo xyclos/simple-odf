@@ -11,7 +11,6 @@ import { Style } from "../style/Style";
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
-  private text: string | undefined;
   private style: Style;
 
   /**
@@ -20,10 +19,9 @@ export class Paragraph extends OdfElement {
    * @param {string} [text] The optional text content of the paragraph
    * @since 0.1.0
    */
-  public constructor(text?: string) {
+  public constructor(private text?: string) {
     super();
 
-    this.text = text;
     this.style = new Style();
   }
 

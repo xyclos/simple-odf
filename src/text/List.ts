@@ -1,5 +1,8 @@
+import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
+import { ListStyle } from "../style/ListStyle";
+import { ListType } from "../style/ListType";
 import { ListItem } from "./ListItem";
 
 /**
@@ -9,13 +12,20 @@ import { ListItem } from "./ListItem";
  * @since 0.2.0
  */
 export class List extends OdfElement {
+  private style: ListStyle;
+  private shouldContinueNumbering: boolean;
+
   /**
-   * Creates a list
+   * Creates a list.
    *
+   * @param {ListType} [type=ListType.Bullet] The optional type of the list
    * @since 0.2.0
    */
-  public constructor() {
+  public constructor(type = ListType.Bullet) {
     super();
+
+    this.style = new ListStyle(type);
+    this.shouldContinueNumbering = false;
   }
 
   /**
@@ -130,6 +140,37 @@ export class List extends OdfElement {
     return this.getElements().length;
   }
 
+  /**
+   * Sets whether the numbering of the preceding list is continued or not.
+   * This flag is ignored if the list style is not Number.
+   *
+   * @param {boolean} isContinueNumbering TRUE if the numbering is continued, FALSE otherwise
+   * @since 0.3.0
+   */
+  public setContinueNumbering(isContinueNumbering: boolean): void {
+    this.shouldContinueNumbering = isContinueNumbering;
+  }
+
+  /**
+   * Returns whether the numbering of this list is continuing.
+   *
+   * @returns {boolean} TRUE if the numbering is continued, FALSE otherwise
+   * @since 0.3.0
+   */
+  public isContinueNumbering(): boolean {
+    return this.shouldContinueNumbering;
+  }
+
+  /**
+   * Returns the list style of this list.
+   *
+   * @returns {ListStyle} The list style
+   * @since 0.3.0
+   */
+  public getStyle(): ListStyle {
+    return this.style;
+  }
+
   /** @inheritDoc */
   protected toXML(document: Document, parent: Element): void {
     if (this.hasChildren() === false) {
@@ -139,6 +180,10 @@ export class List extends OdfElement {
     const listElement = document.createElement(OdfElementName.TextList);
 
     parent.appendChild(listElement);
+
+    if (this.shouldContinueNumbering === true && this.getStyle().getType() === ListType.Number) {
+      listElement.setAttribute(OdfAttributeName.TextContinueNumbering, "true");
+    }
 
     super.toXML(document, listElement);
   }

@@ -1,3 +1,5 @@
+import { ListStyle } from "../../src/style/ListStyle";
+import { ListType } from "../../src/style/ListType";
 import { List } from "../../src/text/List";
 import { ListItem } from "../../src/text/ListItem";
 import { TextDocument } from "../../src/TextDocument";
@@ -29,6 +31,16 @@ describe(List.name, () => {
     const documentAsString = document.toString();
     /* tslint:disable-next-line:max-line-length */
     expect(documentAsString).toMatch(/<text:list><text:list-item><text:p>first<\/text:p><\/text:list-item><\/text:list>/);
+  });
+
+  it("create a list with list style Bullet as default", () => {
+    expect(list.getStyle().getType()).toBe(ListType.Bullet);
+  });
+
+  it("create a list with specified list style", () => {
+    list = document.addList(ListType.Number);
+
+    expect(list.getStyle().getType()).toBe(ListType.Number);
   });
 
   describe("#addItem", () => {
@@ -203,6 +215,60 @@ describe(List.name, () => {
 
     it("return the size of the list", () => {
       expect(list.size()).toBe(3);
+    });
+  });
+
+  describe("#setContinueNumbering", () => {
+    beforeEach(() => {
+      document = new TextDocument();
+    });
+
+    it("set continue-numbering attribute on list if flag was set and list type is NUMBER", () => {
+      list = document.addList(ListType.Number);
+      list.addItem(testItem1);
+
+      list.setContinueNumbering(true);
+
+      expect(document.toString()).toMatch(/<text:list text:continue-numbering="true">/);
+    });
+
+    it("not set continue-numbering attribute on list if flag was unset", () => {
+      list = document.addList(ListType.Number);
+      list.addItem(testItem1);
+
+      list.setContinueNumbering(true);
+      list.setContinueNumbering(false);
+
+      expect(document.toString()).toMatch(/<text:list>/);
+    });
+
+    it("not set continue-numbering attribute on list if list type is BULLET", () => {
+      list = document.addList();
+      list.addItem(testItem1);
+
+      list.setContinueNumbering(true);
+
+      expect(document.toString()).toMatch(/<text:list>/);
+    });
+  });
+
+  describe("#isContinueNumbering", () => {
+    it("return false by default", () => {
+      expect(list.isContinueNumbering()).toBe(false);
+    });
+
+    it("return the current state whether numbering continues", () => {
+      list.setContinueNumbering(true);
+
+      expect(list.isContinueNumbering()).toBe(true);
+    });
+  });
+
+  describe("#getStyle", () => {
+    it("get the list style", () => {
+      const style = list.getStyle();
+
+      expect(style).toBeInstanceOf(ListStyle);
     });
   });
 });

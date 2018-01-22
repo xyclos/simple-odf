@@ -5,6 +5,7 @@ import { DOMImplementation, XMLSerializer } from "xmldom";
 import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
 import { OdfElementName } from "./OdfElementName";
+import { ListType } from "./style/ListType";
 import { Heading } from "./text/Heading";
 import { List } from "./text/List";
 import { Paragraph } from "./text/Paragraph";
@@ -57,11 +58,12 @@ export class TextDocument extends OdfElement {
   /**
    * Adds a list at the end of the document.
    *
+   * @param {ListType} [type] The optional list type
    * @returns {List} The newly added list
    * @since 0.2.0
    */
-  public addList(): List {
-    const list = new List();
+  public addList(type?: ListType): List {
+    const list = new List(type);
     this.appendElement(list);
 
     return list;
