@@ -1,4 +1,3 @@
-// tslint:disable:no-duplicate-imports
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
 import { BorderStyle, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
 import { ParagraphStyle, Style, StyleFamily, TabStopLeaderStyle, TabStopType } from '../../api/style';

@@ -1,12 +1,13 @@
-// tslint:disable:no-duplicate-imports
 import { unlink } from 'fs';
 import { join } from 'path';
 import { promisify } from 'util';
 import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
-import { BorderStyle, Color, FontPitch, FontVariant, HorizontalAlignment } from '../src/api/style';
-import { HorizontalAlignmentLastLine, PageBreak, ParagraphStyle, TabStop, TabStopType } from '../src/api/style';
-import { TextTransformation, Typeface, VerticalAlignment } from '../src/api/style';
+import {
+  BorderStyle, Color, FontPitch, FontVariant, HorizontalAlignment,
+  HorizontalAlignmentLastLine, PageBreak, ParagraphStyle, TabStop,
+  TabStopType, TextTransformation, Typeface, VerticalAlignment
+} from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
 
@@ -99,8 +100,8 @@ xdescribe('integration', () => {
       style.setHorizontalAlignment(HorizontalAlignment.Justify);
       style.setHorizontalAlignmentLastLine(HorizontalAlignmentLastLine.Center);
 
-      const paragraph = body.addParagraph('Some justified text'
-        + ' (with a lot of text to make sure it does not fit into a single line) with a centered last line');
+      const paragraph = body.addParagraph('Some justified text' +
+        ' (with a lot of text to make sure it does not fit into a single line) with a centered last line');
       paragraph.setStyle(style);
     });
 

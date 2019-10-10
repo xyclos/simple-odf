@@ -10,7 +10,6 @@ export class OdfTextElementWriter {
    */
   public write (odfText: OdfTextElement, document: Document, parent: Element): void {
     const text = odfText.getText();
-    /* tslint:disable-next-line:strict-type-predicates */
     if (text === undefined || text === '') {
       return;
     }
@@ -19,7 +18,7 @@ export class OdfTextElementWriter {
     for (let index = 0; index < text.length; index++) {
       const currentChar = text.charAt(index);
       switch (currentChar) {
-        case SPACE:
+        case SPACE: {
           str += currentChar;
 
           const count = this.findNextNonSpaceCharacter(text, index) - 1;
@@ -30,6 +29,7 @@ export class OdfTextElementWriter {
             index += count;
           }
           break;
+        }
         case '\n':
           this.appendTextNode(document, parent, str);
           this.appendLineBreakNode(document, parent);

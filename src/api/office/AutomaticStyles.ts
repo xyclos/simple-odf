@@ -140,7 +140,6 @@ export class AutomaticStyles implements IStyles {
       hash.update(paragraphStyle.getVerticalAlignment());
       hash.update('widows' + paragraphStyle.getWidows());
       paragraphStyle.getTabStops().forEach((tabStop) => {
-        // tslint:disable-next-line:max-line-length
         hash.update(`tab${tabStop.getChar()}${tabStop.getLeaderColor()}${tabStop.getLeaderStyle()}${tabStop.getPosition()}${tabStop.getType()}`);
       });
 
